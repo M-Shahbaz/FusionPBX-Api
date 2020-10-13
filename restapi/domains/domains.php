@@ -1,25 +1,29 @@
 <?php
 
+/**
+ * Created by PhpStorm.
+ * User: aspurlock
+ * Date: 2/26/2019
+ * Time: 1:29 PM
+ */
+
 header('Content-Type: application/json');
 
 include '/var/www/fusionpbx/root.php';
 require_once '/var/www/fusionpbx/resources/check_auth.php';
 
 $domain_uuid = (isset($_GET['domain_uuid']) ? $_GET['domain_uuid'] : null);
-$extension = (isset($_GET['extension']) ? $_GET['extension'] : null);
 $message = array(['message' => 'Missing info!']);
 
-
 /*Show an single extension under a specific domain*/
-if ($extension !== null and $domain_uuid !== null) {
-    $sql = "select * from v_extensions ";
-    $sql .= "where domain_uuid = '$domain_uuid' and extension = '$extension'";
+if ($domain_uuid !== null) {
+    $sql = "select * from v_domains ";
+    $sql .= "where domain_uuid = '$domain_uuid'";
     $prep_statement = $db->prepare(check_sql($sql));
     $prep_statement->execute();
-    $extension = $prep_statement->fetchAll(PDO::FETCH_NAMED);
+    $domain = $prep_statement->fetchAll(PDO::FETCH_NAMED);
     unset($sql);
-    $message = $extension;
-
+    $message = $domain;
     echo (json_encode($message));
 } else {
     throw new Exception(json_encode($message), 1);
