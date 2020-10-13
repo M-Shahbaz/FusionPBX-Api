@@ -26,5 +26,6 @@ if ($domain_uuid !== null) {
     $message = $domain;
     echo (json_encode($message));
 } else {
-    throw new Exception(json_encode($message), 1);
+    http_response_code(403);
+    echo (json_encode($message));
 }
