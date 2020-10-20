@@ -31,10 +31,10 @@ if ($call_uuid !== null) {
     $sql .= "WHERE domain_uuid = '$domain_uuid' AND direction = 'outbound' ";
     
     foreach ($gateway_uuid_not_array as $gateway_uuid_not) {
-        $sql .= "AND elem->'@attributes'->>'app_data' NOT LIKE '%sofia/gateway/$gateway_uuid_not% '";    
+        $sql .= "AND elem->'@attributes'->>'app_data' NOT LIKE '%sofia/gateway/$gateway_uuid_not%' ";    
     }
 
-    $sql .= "AND elem->'@attributes'->>'app_data' LIKE '%sofia/gateway/{$gateway_uuid}% '";
+    $sql .= "AND elem->'@attributes'->>'app_data' LIKE '%sofia/gateway/{$gateway_uuid}%' ";
     $sql .= "AND start_stamp BETWEEN '{$start}' AND '{$end}' ";
 
     $prep_statement = $db->prepare(check_sql($sql));
