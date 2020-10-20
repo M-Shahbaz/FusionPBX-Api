@@ -27,7 +27,7 @@ if ($call_uuid !== null) {
     echo (json_encode($message));
 } else if ($domain_uuid !== null && $gateway_uuid !== null && $start !== null && $end !== null) {
     
-    $sql = "SELECT  SUM(billsec) as sec, SUM(billsec)/60 as min FROM v_xml_cdr t, json_array_elements(t.json::json->'app_log'->'application') AS elem";
+    $sql = "SELECT  SUM(billsec) as sec, SUM(billsec)/60 as min FROM v_xml_cdr t, json_array_elements(t.json::json->'app_log'->'application') AS elem ";
     $sql .= "WHERE domain_uuid = '$domain_uuid' AND direction = 'outbound' ";
     
     foreach ($gateway_uuid_not_array as $gateway_uuid_not) {
